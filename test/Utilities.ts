@@ -4,7 +4,7 @@ import { Signers } from "../types";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import { AddressToStringIterableMap } from "../typechain/AddressToStringIterableMap"
 
-import { shouldBehaveLikeUtilities } from "./Utilities.behavior";
+// import { shouldBehaveLikeUtilities } from "./Utilities.behavior";
 
 const { deployContract } = hre.waffle;
 
@@ -20,6 +20,7 @@ describe("Setup Admin and Unnamed Accounts", function () {
         }
     });
 
+    /*
     describe("Utilities Contract", function () {
         before(async function () {
             const AddressStringMapArtifact: Artifact =
@@ -31,4 +32,5 @@ describe("Setup Admin and Unnamed Accounts", function () {
 
         shouldBehaveLikeUtilities();
     });
+    */
 });

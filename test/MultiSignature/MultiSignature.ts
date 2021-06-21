@@ -2,7 +2,7 @@ import hre from "hardhat";
 import { Artifact } from "hardhat/types";
 import { Signers } from "../../types";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
-import { MultiSignature } from "../../typechain/MultiSignature"
+import { MultiSignatureAgreement } from "../../typechain/MultiSignatureAgreement"
 import { shouldBehaveLikeMultiSignature } from "./MultiSignature.behavior";
 
 const { deployContract } = hre.waffle;
@@ -22,9 +22,9 @@ describe("Setup Contract Admin and Unnamed Accounts", function () {
     describe("Creating MultiSignature Contract", function () {
         before(async function () {
             const multiSignatureArtifact: Artifact =
-                await hre.artifacts.readArtifact("MultiSignature");
+                await hre.artifacts.readArtifact("MultiSignatureAgreement");
             this.multiSignature =
-                <MultiSignature>await deployContract(
+                <MultiSignatureAgreement>await deployContract(
                     this.signers.admin, multiSignatureArtifact, []);
         });
 

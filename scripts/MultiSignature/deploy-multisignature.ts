@@ -3,7 +3,7 @@ but useful for running the script in a standalone fashion through `node <script>
 When running the script with `hardhat run <script>` you'll find the Hardhat
 Runtime Environment's members available in the global scope. */
 
-import { ethers } from 'hardhat';
+import { ethers, upgrades } from 'hardhat';
 import { Contract, ContractFactory } from 'ethers';
 import { config as dotenvConfig } from 'dotenv';
 import { resolve } from 'path';
@@ -16,11 +16,21 @@ async function main(): Promise<void> {
     If this runs in a standalone fashion you may want to call compile manually
     to make sure everything is compiled
     await run("compile"); We get the contract to deploy */
-    const multiSigFactory: ContractFactory = await ethers.getContractFactory('MultiSignature');
+    const multiSigFactory: ContractFactory = await ethers.getContractFactory('MultiSignatureAgreement');
     const MultiSignature: Contract = await multiSigFactory.deploy();
     await MultiSignature.deployed();
     console.log('Lottery deployed to: ', MultiSignature.address);
 }
+
+/*
+async function upgrade(): Promise<void> {        
+    const OZ_SDK_EXPORT = require("../openzeppelin-cli-export.json");    
+    const [ContractName] =
+        OZ_SDK_EXPORT.networks.rinkeby.proxies["openzeppelin-upgrades-migration-example/ContractName"];
+    const ContractNameV2 = await ethers.getContractFactory("ContractNameV2");
+    await upgrades.upgradeProxy(ContractName.address, ContractNameV2);
+}
+*/
 
 /* We recommend this pattern to be able to use async/await everywhere
   and properly handle errors. */
