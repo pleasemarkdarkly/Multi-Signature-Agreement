@@ -92,8 +92,7 @@ export function shouldBehaveLikeMultiSignature(): void {
     it("should randomly pick an owner to pay ether - submit transaction", async function () {
         const randomOwner = Math.floor(Math.random() * this.multiSigners.length);
         const to = await this.multiSigners[randomOwner];        
-        const data = "0x543209b700000000000000000000000000000000000000000000000000038d7c3f041040";
-        // TODO: transaction with empty data
+        const data = "0x543209b700000000000000000000000000000000000000000000000000038d7c3f041040";        
         const defaultGas = 20000;
         const multiSignatureBalance = await (await hre.ethers.provider.getBalance(await this.multiSignature.address)).sub(defaultGas);
         const isOwner = await this.multiSignature.isOwner(to);
@@ -130,9 +129,11 @@ export function shouldBehaveLikeMultiSignature(): void {
     
     it("should execute transaction", async function () {
         const index = await this.multiSignature.getTransactionCount() - 1;
-        const result = await this.multiSignature.connect(await this.unnamedAccounts[0]).executeTransaction(index);        
-        expect(console.log(result));
-        // TODO: test for failure cases
-        // TODO: hook into events
+        const block = await this.multiSignature.connect(await this.unnamedAccounts[0]).executeTransaction(index);
+        const receipt = await block.wait();        
+        const { events } = receipt;
+        expect(events[0].event).to.equal("ExecuteTransaction");
+        expect(events[0].args.owner).to.equal(await this.unnamedAccounts[0].address);
+        expect(events[0].args.txIndex).to.equal(index);        
     });
 };
