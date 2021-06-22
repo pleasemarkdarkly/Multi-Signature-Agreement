@@ -2,9 +2,9 @@ import hre from "hardhat";
 import { Artifact } from "hardhat/types";
 import { Signers } from "../types";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
+import { UTILITIES  } from ".";
 import { AddressToStringIterableMap } from "../typechain/AddressToStringIterableMap"
-
-// import { shouldBehaveLikeUtilities } from "./Utilities.behavior";
+import { shouldBehaveLikeUtilities } from "./Utilities.behavior";
 
 const { deployContract } = hre.waffle;
 
@@ -20,8 +20,8 @@ describe("Setup Admin and Unnamed Accounts", function () {
         }
     });
 
-    /*
-    describe("Utilities Contract", function () {
+    
+    describe("✨ Address To String Iterable Map Utility", function () {
         before(async function () {
             const AddressStringMapArtifact: Artifact =
                 await hre.artifacts.readArtifact("AddressToStringIterableMap");
@@ -30,7 +30,7 @@ describe("Setup Admin and Unnamed Accounts", function () {
                 this.signers.admin, AddressStringMapArtifact, []);
         });
 
-        shouldBehaveLikeUtilities();
+        UTILITIES && shouldBehaveLikeUtilities();
     });
-    */
+    
 });

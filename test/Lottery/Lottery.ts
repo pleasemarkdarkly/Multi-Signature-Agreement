@@ -2,9 +2,9 @@ import hre from "hardhat";
 import { Artifact } from "hardhat/types";
 import { Signers } from "../../types";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
+import { LOTTERY } from "..";
 import { Lottery } from "../../typechain/Lottery"
-// import { shouldBehaveLikeLottery } from "./Lottery.behavior";
-
+import { shouldBehaveLikeLottery } from "./Lottery.behavior";
 const { deployContract } = hre.waffle;
 
 describe("Lottery Contract Admin and Participant Setup", function () {        
@@ -29,6 +29,6 @@ describe("Lottery Contract Admin and Participant Setup", function () {
                     this.signers.admin, lotteryArtifact, []);
         });
 
-        // shouldBehaveLikeLottery();
+        LOTTERY && shouldBehaveLikeLottery();
     });
 });

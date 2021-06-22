@@ -33,7 +33,7 @@ export function shouldBehaveLikeMultiSignature(): void {
         }        
     });
 
-    it("should initialize multisignature contract with 5 members and requirement of 3 of 5 approvals", async function () {        
+    it(`should initialize multisignature contract with 5 members and requirement of ${NUM_CONFIRMATIONS} of 5 approvals`, async function () {        
         const [one, two, three, four, five] = this.unnamedAccounts;
         const multiSigners = [
             await one.address,
@@ -91,8 +91,10 @@ export function shouldBehaveLikeMultiSignature(): void {
 
     it("should randomly pick an owner to pay ether - submit transaction", async function () {
         const randomOwner = Math.floor(Math.random() * this.multiSigners.length);
-        const to = await this.multiSigners[randomOwner];        
-        const data = "0x543209b700000000000000000000000000000000000000000000000000038d7c3f041040";        
+        const to = await this.multiSigners[randomOwner];
+        // TODO: create an example where the execute transaction is calling a function in another contract using data property
+        // const data = "0x543209b700000000000000000000000000000000000000000000000000038d7c3f041040";
+        const data = hre.ethers.constants.HashZero;
         const defaultGas = 20000;
         const multiSignatureBalance = await (await hre.ethers.provider.getBalance(await this.multiSignature.address)).sub(defaultGas);
         const isOwner = await this.multiSignature.isOwner(to);

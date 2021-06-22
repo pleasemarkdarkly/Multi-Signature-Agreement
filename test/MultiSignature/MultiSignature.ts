@@ -2,6 +2,7 @@ import hre from "hardhat";
 import { Artifact } from "hardhat/types";
 import { Signers } from "../../types";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
+import { MULTISIGNATURE  } from "..";
 import { MultiSignatureAgreement } from "../../typechain/MultiSignatureAgreement"
 import { shouldBehaveLikeMultiSignature } from "./MultiSignature.behavior";
 
@@ -28,6 +29,6 @@ describe("Setup Contract Admin and Unnamed Accounts", function () {
                     this.signers.admin, multiSignatureArtifact, []);
         });
 
-        shouldBehaveLikeMultiSignature();
+        MULTISIGNATURE && shouldBehaveLikeMultiSignature();
     });
 });
